@@ -652,7 +652,7 @@ img,svg{image-rendering:pixelated}
 
   // ===== 后台统计（匿名 ID）=====
   // 把 BACKEND 填成你的后端地址（Cloudflare Worker 等），留空则只本地计数、不上报
-  const BACKEND = '';
+  const BACKEND = 'https://flat-truth-678achenmanyu-stats.2424389092.workers.dev';
   const VID_KEY = 'chenmanyu_vid';
   function getVid(){
     let v = localStorage.getItem(VID_KEY);
