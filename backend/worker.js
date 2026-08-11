@@ -73,8 +73,11 @@ export default {
       }
       events.sort((a, b) => b.ts - a.ts);
       const rows = events.slice(0, 200).map(e => {
+        let ts = Number(e.ts);
+        if (!Number.isFinite(ts) || ts <= 0) ts = Date.now();
+        if (ts < 1e12) ts = ts * 1000; // 兼容秒级时间戳（旧测试数据）
         const short = String(e.vid).slice(0, 8);
-        const t = new Date(e.ts).toLocaleString('zh-CN', { hour12:false });
+        const t = new Date(ts).toLocaleString('zh-CN', { hour12:false, timeZone:'Asia/Shanghai' });
         const act = e.type === 'like' ? '👍 点赞' : '👁 预览';
         return `<tr><td>${short}</td><td>${act}</td><td>${t}</td></tr>`;
       }).join('');
