@@ -665,7 +665,7 @@ img,svg{image-rendering:pixelated}
       fetch(BACKEND + '/event', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ vid:getVid(), type:type, ts:Date.now() }),
+        body: JSON.stringify({ kind:type, visitorId:getVid(), ts:Date.now() }),
         keepalive:true
       });
     }catch(e){}
@@ -681,7 +681,7 @@ img,svg{image-rendering:pixelated}
     likeCount.textContent = likes;
     if (BACKEND) {
       fetch(BACKEND + '/stats.json').then(r=>r.json()).then(d=>{
-        if (d && typeof d.likes === 'number') likeCount.textContent = d.likes;
+        if (d && d.summary && typeof d.summary.totalLikes === 'number') likeCount.textContent = d.summary.totalLikes;
       }).catch(()=>{});
     }
     likeBtn.addEventListener('click', () => {
